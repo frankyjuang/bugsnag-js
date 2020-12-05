@@ -8,6 +8,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "bugsnag-react-native-cli": "^7.5.3-ci-integration-rn-cli.13d3c7be71",
     "react": "16.8.6",
     "react-native": "0.60.5"
   },
