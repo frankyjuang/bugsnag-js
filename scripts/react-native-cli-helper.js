@@ -51,20 +51,18 @@ module.exports = {
     }
 
     // JavaScript layer
-    console.log(`Changing directory to: ${targetDir} and running "npm install"`)
     common.changeDir(`${targetDir}`)
     common.run(`npm install --registry ${registryUrl}`, true)
 
     // Install and run the CLI
     const installCommand = `npm install bugsnag-react-native-cli@${version} --registry ${registryUrl}`
     common.run(installCommand, true)
-    // TODO Need to provide an answers file for the init command
-    // const initCommand = './node_modules/bugsnag-react-native-cli/bin/cli init'
-    // common.run(initCommand, true)
+
+    // Use Expect to run the init command interactively
+    common.changeDir(`${initialDir}/${fixturesDir}`)
+    common.run('./rn-cli-init-interactive.sh', true)
 
     // Performing local build steps
-    common.changeDir(`${initialDir}/${fixturesDir}`)
-    console.log('Locating local build script')
     if (!fs.existsSync('./build-ios.sh')) {
       throw new Error('Local iOS build file at ./build-ios.sh not found')
     }
