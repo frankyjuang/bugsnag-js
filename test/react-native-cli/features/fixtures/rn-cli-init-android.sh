@@ -15,7 +15,7 @@ expect "What is your Bugsnag API key?"
 send -- 12312312312312312312312312312312\r
 
 expect "Do you want to automatically upload source maps as part of the Xcode build?"
-send -- y
+send -- n
 
 expect "Do you want to automatically upload source maps as part of the Gradle build?"
 send -- y
