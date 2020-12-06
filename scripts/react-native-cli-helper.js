@@ -14,9 +14,9 @@ module.exports = {
 
     // Copy in files required from the host (just the Android ones)
     common.run(`mkdir -p ${destFixtures}/${rnVersion}`)
-    common.run(`rsync -a --no-recursive ${sourceFixtures}/* ${destFixtures}`, true)
-    common.run(`rsync -a --no-recursive ${sourceFixtures}/${rnVersion}/* ${destFixtures}/${rnVersion}`, true)
-    common.run(`rsync -a ${sourceFixtures}/${rnVersion}/android ${destFixtures}/${rnVersion}`, true)
+    common.run(`rsync -av --no-recursive ${sourceFixtures}/* ${destFixtures}`, true)
+    common.run(`rsync -av --no-recursive ${sourceFixtures}/${rnVersion}/* ${destFixtures}/${rnVersion}`, true)
+    common.run(`rsync -av ${sourceFixtures}/${rnVersion}/android ${destFixtures}/${rnVersion}`, true)
 
     // JavaScript layer
     common.changeDir(`${destFixtures}/${rnVersion}`)
@@ -25,12 +25,14 @@ module.exports = {
     // Install and run the CLI
     const installCommand = `npm install bugsnag-react-native-cli@${version} --registry ${registryUrl}`
     common.run(installCommand, true)
+
     // Use Expect to run the init command interactively
-    const initCommand = `${destFixtures}/rn-cli-init-interactive.sh`
+    common.changeDir(`${destFixtures}`)
+    const initCommand = `./rn-cli-init-interactive.sh`
     common.run(initCommand, true)
 
     // Native layer
-    common.changeDir('android')
+    common.changeDir(`${destFixtures}/${rnVersion}/android`)
     common.run('./gradlew assembleRelease', true)
 
     // Finally, copy the APK back to the host
