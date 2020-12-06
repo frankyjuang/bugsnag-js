@@ -14,6 +14,7 @@ module.exports = {
 
     // Copy in files required from the host (just the Android ones)
     common.run(`mkdir -p ${destFixtures}/${rnVersion}`)
+    common.run(`rsync -a --no-recursive ${sourceFixtures}/* ${destFixtures}`, true)
     common.run(`rsync -a --no-recursive ${sourceFixtures}/${rnVersion}/* ${destFixtures}/${rnVersion}`, true)
     common.run(`rsync -a ${sourceFixtures}/${rnVersion}/android ${destFixtures}/${rnVersion}`, true)
 
@@ -24,9 +25,9 @@ module.exports = {
     // Install and run the CLI
     const installCommand = `npm install bugsnag-react-native-cli@${version} --registry ${registryUrl}`
     common.run(installCommand, true)
-    // TODO App will not build at present if init is run
-    // const initCommand = './node-modules/bugsnag-react-native-cli/bin/react-native-cli init'
-    // common.run(initCommand, true)
+    // Use Expect to run the init command interactively
+    const initCommand = '${destFixtures}/rn-cli-init-interactively.sh'
+    common.run(initCommand, true)
 
     // Native layer
     common.changeDir('android')
