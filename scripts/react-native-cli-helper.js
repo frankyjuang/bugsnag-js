@@ -26,7 +26,7 @@ module.exports = {
     const installCommand = `npm install bugsnag-react-native-cli@${version} --registry ${registryUrl}`
     common.run(installCommand, true)
     // Use Expect to run the init command interactively
-    const initCommand = '${destFixtures}/rn-cli-init-interactively.sh'
+    const initCommand = `${destFixtures}/rn-cli-init-interactive.sh`
     common.run(initCommand, true)
 
     // Native layer
@@ -68,7 +68,7 @@ module.exports = {
     if (!fs.existsSync('./build-ios.sh')) {
       throw new Error('Local iOS build file at ./build-ios.sh not found')
     }
-    // common.run(`./build-ios.sh ${rnVersion}`, true)
+    common.run(`./build-ios.sh ${rnVersion}`, true)
 
     // Copy file to build directory
     common.changeDir(initialDir)
