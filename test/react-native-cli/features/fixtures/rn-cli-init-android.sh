@@ -22,7 +22,7 @@ send -- y
 
 # TODO Remove once BAGP is released for real
 expect "If you want the latest version of the Bugsnag Android Gradle plugin hit enter, otherwise type the version you want"
-send -- v5.5.0-alpha01\r
+send -- 5.5.0-alpha01\r
 
 expect "If you want the latest version of @bugsnag/source-maps hit enter, otherwise type the version you want"
 send -- latest\r
